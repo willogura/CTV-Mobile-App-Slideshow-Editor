@@ -1,0 +1,493 @@
+{
+
+
+  
+
+  "title": "Slide Show",
+  "type": "object",
+  "id": "slides",
+  
+  "options": {
+  "disable_collapse": "true",
+  "disable_edit_json": "true",
+  "disable_properties": "true",
+  "disable_array_delete": "true"
+
+  },
+  "properties": {
+
+  
+    
+          "slideType": {
+      "type": "string",
+      
+       "options": {"hidden": true
+       }
+    }
+    
+     
+    
+    },  
+    
+
+    
+    
+    
+    
+    
+    
+    
+      "oneOf": [
+    
+
+
+
+  
+  
+  
+  
+  
+ 
+    
+    {
+    
+     "title": "Category",
+     "description": "Opens Selected Category when slide is pressed",
+
+    
+      "additionalProperties": false,
+      "properties": {
+      
+        "title": {
+      "type": "string",
+      "minLength": 4,
+      "description": "Title of Slide"
+      
+    },
+    
+    
+    "image":{  
+         "type":"string",  
+  
+         "format":"url",
+          "minLength": 5,
+  
+    
+    
+         "options":{  
+        
+       
+          "include_filename": false,
+            "upload":true
+             
+         },
+         
+        
+         "links":[  
+               {
+               
+              
+                 
+                   
+         
+    "href": "http://www.ctv15.org/mobile_app/examples/uploads/{{ self}}",
+    
+    "mediaType": "image/*"
+            }
+         ]
+      },
+
+
+    "category": {
+      "type": "string",
+      "enum": ["-",
+      		"baseball",
+      		
+            "basketball",
+            "concerts",
+            "football",
+            "graduations",
+            "gymnastics",
+            "hockey",
+            "lacrosse",
+            "meetings",
+            "news",
+            "parades",
+            
+            "programs",
+
+            "soccer",
+            "softball",
+            "sports",
+            
+            "swimming",
+            "teens",
+            "volleyball",
+            "ctvyoutube"
+          ]
+      
+    },
+    
+         "slideType": {
+      "type": "string",
+      
+      "enum": ["category"],
+       "options": {"hidden": true}
+     
+    
+  }
+}  
+
+
+
+
+
+},
+
+    {
+    
+     "title": "Video",
+     "description": "Opens Single Video when slide is pressed",
+      "additionalProperties": false,
+      "properties": {
+      
+        "title": {
+      "type": "string",
+      "minLength": 4,
+      "description": "Title of Slide"
+      
+    },
+    
+     "image":{  
+         "type":"string",  
+  
+         "format":"url",
+          "minLength": 5,
+  
+    
+    
+         "options":{  
+        
+       
+          "include_filename": false,
+            "upload":true
+             
+         },
+         
+        
+         "links":[  
+               {
+               
+              
+                 
+                   
+         
+    "href": "http://www.ctv15.org/mobile_app/examples/uploads/{{ self}}",
+    
+    "mediaType": "image/*"
+            }
+         ]
+      },
+      
+        "videoID": {
+       
+      "type": "number",
+      "minimum": 1,
+       "links": [
+    {
+      "rel": "Test Show ID",
+      "href": "http://trms.ctv15.org/cablecastapi/embed?show_id={{self}}",
+
+    
+    
+    
+      "class": "comment-link open-in-modal primary-text"
+    }],
+     "description": "CableCast Video ID"
+     
+    
+  },
+  
+     "slideType": {
+      "type": "string",
+      
+      "enum": ["video"],
+       "options": {"hidden": true}
+     
+    
+  },
+  
+      "category": {
+      "type": "string",
+      "description": "Optional Category Associated with Video",
+      "enum": ["-",
+      		"baseball",
+      		
+            "basketball",
+            "community",
+            "football",
+            "gymnastics",
+            "hockey",
+            "lacrosse",
+            "meetings",
+            "parades",
+            "programs",
+
+            "soccer",
+            "softball",
+            
+            "swimming",
+            
+            "volleyball"
+           
+          ]
+      
+    }
+    
+
+
+}
+
+
+
+
+
+  
+  
+},
+
+
+
+    {
+    
+     "title": "App Page",
+     "description": "Opens a specific app page when slide is pressed",
+      "additionalProperties": false,
+      "properties": {
+      
+   "title": {
+      "type": "string",
+      "minLength": 4,
+      "description": "Title of Slide"
+      
+    },
+    
+       "image":{  
+         "type":"string",  
+  
+         "format":"url",
+          "minLength": 5,
+  
+    
+    
+         "options":{  
+        
+       
+          "include_filename": false,
+            "upload":true
+             
+         },
+         
+        
+         "links":[  
+               {
+               
+              
+                 
+                   
+         
+    "href": "http://www.ctv15.org/mobile_app/examples/uploads/{{ self}}",
+    
+    "mediaType": "image/*"
+            }
+         ]
+      },
+  
+     "slideType": {
+      "type": "string",
+      
+      "enum": ["page"],
+       "options": {"hidden": true}
+     
+    
+  },
+  
+      "page": {
+      "type": "string",
+      "description": "Name of App Page",
+            "enum": ["-",
+      		"About"
+      		
+         
+           
+          ]
+          
+      
+    }
+    
+  
+  
+
+
+ 
+}
+},
+
+    {
+    
+     "title": "Web Page",
+     "description": "Opens a specific web page when slide is pressed",
+      "additionalProperties": false,
+      "properties": {
+      
+    "title": {
+      "type": "string",
+      "minLength": 4,
+      "description": "Title of Slide"
+      
+    },
+    
+      "image":{  
+         "type":"string",  
+  
+         "format":"url",
+          "minLength": 5,
+  
+    
+    
+         "options":{  
+        
+       
+          "include_filename": false,
+            "upload":true
+             
+         },
+         
+        
+         "links":[  
+               {
+               
+              
+                 
+                   
+         
+    "href": "http://www.ctv15.org/mobile_app/examples/uploads/{{ self}}",
+    
+    "mediaType": "image/*"
+            }
+         ]
+      },
+  
+     "slideType": {
+      "type": "string",
+      
+      "enum": ["web"],
+       "options": {"hidden": true}
+     
+    
+  },
+  
+  
+  
+  
+
+
+      "webURL": {
+      "type": "string",
+      "description": "Web Page URL (add 'mailto:' to open email when pressed"
+      
+    }
+}
+},
+
+    {
+    
+     "title": "Live Event",
+     "description": "Opens the live event player when slide is pressed",
+      "additionalProperties": false,
+      "properties": {
+      
+    "title": {
+      "type": "string",
+      "minLength": 4,
+      "description": "Title of Slide"
+      
+    },
+    
+      "image":{  
+         "type":"string",  
+  
+         "format":"url",
+          "minLength": 5,
+  
+    
+    
+         "options":{  
+        
+       
+          "include_filename": false,
+            "upload":true
+             
+         },
+         
+        
+         "links":[  
+               {
+               
+              
+                 
+                   
+         
+    "href": "http://www.ctv15.org/mobile_app/examples/uploads/{{ self}}",
+    
+    "mediaType": "image/*"
+            }
+         ]
+      },
+  
+     "slideType": {
+      "type": "string",
+      
+      "enum": ["liveEvent"],
+       "options": {"hidden": true}
+     
+    
+  },
+          "videoID": {
+       
+      "type": "number",
+           "enum": [1],
+       "options": {"hidden": true}
+   
+     
+    
+  },
+  
+  
+  
+  
+  
+
+
+      "webURL": {
+      "type": "string",
+      "enum": ["http://wowza1.ctv15.org:1935/Live1/live/playlist.m3u8"],
+       "options": {"hidden": true}
+     
+    
+      
+    }
+}
+}
+
+
+
+
+
+
+
+]
+
+
+
+}

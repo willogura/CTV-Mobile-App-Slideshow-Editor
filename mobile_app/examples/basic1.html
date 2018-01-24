@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>CTV App Editor</title>
+    
+    
+        <!-- Foundation CSS framework (Bootstrap and jQueryUI also supported) -->
+    <link rel='stylesheet' href='//cdn.jsdelivr.net/foundation/5.0.2/css/foundation.min.css'>
+    <!-- Font Awesome icons (Bootstrap, Foundation, and jQueryUI also supported) -->
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+    
+    
+    <script src="../dist/jsoneditor.js"></script>
+
+
+     <script>
+    // Set the default CSS theme and icon library globally
+    JSONEditor.defaults.theme = 'foundation5';
+    JSONEditor.defaults.iconlib = 'fontawesome4';
+    </script>
+    
+
+    
+    
+   
+  </head>
+  
+  
+  
+  <body>
+    <div class='row'>
+      <div class='medium-12 columns'>
+        <h1>CTV App JSON Editor</h1>
+      </div>
+    </div>
+    
+    <div class='row'>
+      <div class='medium-12-columns'>
+        <button id='submit' class='tiny'>Save Changes</button>
+        <button id='restore' class='secondary tiny'>Cancel Changes</button>
+        <span id='valid_indicator' class='label'></span>
+      </div>
+    </div>
+    <div class='row'>
+      <div id='editor_holder' class='medium-12 columns'></div>
+    </div>
+    
+
+
+    
+    
+      
+
+    
+    
+    <script>
+    
+    
+
+
+    
+    
+    
+function uploadFile(file){
+
+
+
+
+
+
+
+
+
+
+  
+  }
+
+
+
+
+
+    
+        JSONEditor.defaults.options.upload = function(type, file, cbs) {
+        if (type === 'root.upload_fail') cbs.failure('Upload failed');
+        else {
+        
+        console.log('Called file from html ');
+        
+         console.log(file);
+uploadFile(file);
+
+        
+          var tick = 0;
+
+          var tickFunction = function() {
+            tick += 1;
+            console.log('progress: ' + tick);
+
+            if (tick < 100) {
+              cbs.updateProgress(tick);
+              window.setTimeout(tickFunction, 50)
+            } else if (tick == 100) {
+              cbs.updateProgress();
+              window.setTimeout(tickFunction, 500)
+            } else {
+              cbs.success('http://www.ctv15.org/mobile_app/uploads/' + file.name);
+            }
+          };
+
+          window.setTimeout(tickFunction)
+        }
+      };
+      
+      
+   
+      
+      
+      
+      
+      
+      // This is the starting value for the editor
+      // We will use this to seed the initial editor 
+      // and to provide a "Restore to Default" button.
+      var allText = "";
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                 allText = rawFile.responseText;
+                            }
+        }
+    }
+    rawFile.send(null);
+}
+
+
+readTextFile("http://www.ctv15.org/mobile_app/textForm/formdata.txt");
+console.log(allText);
+
+
+
+
+      var starting_value = [
+        {
+        
+        
+     
+        
+        
+        
+        
+  "title": "Basketball",
+  "image": "slide-basketball-header.png",
+  "slideType": "category",
+  "category": "hockey"
+  
+  
+
+}
+      ];
+      
+      
+    
+   
+ 
+ 
+ 
+ 
+  //  var starting_value = JSON.parse(allText);  
+ 
+ 
+    
+      // Initialize the editor
+      var editor = new JSONEditor(document.getElementById('editor_holder'),{
+      
+      
+        // Enable fetching schemas via ajax
+        ajax: true,
+        
+        // The schema for the editor
+        schema: {
+          type: "array",
+          title: "Slide Show",
+          format: "grid",
+          items: {
+            title: "Slide",
+            headerTemplate: "{{ i1 }} - {{self.title}}",
+            
+                $ref: "slide.json",
+                title: "Slide"
+                
+              }
+            
+          
+        },
+     
+        
+        // Seed the form with a starting value
+        startval: starting_value,
+        
+        // Disable additional properties
+        no_additional_properties: true,
+        
+        // Require all properties by default
+        required_by_default: true,
+        
+        show_errors: "always",
+        
+        remove_empty_properties: false,
+         upload_default: "http://www.ctv15.org/tschultz/public_html/mobile_app/upload.php"
+      });
+      
+      
+      
+    
+      
+      
+      
+  
+JSONEditor.defaults.options.keep_oneof_values = true;
+
+    function post(path, params, method, file) {
+        method = method || "post"; // Set method to post by default if not specified.
+
+        // The rest of this code assumes you are not using a library.
+        // It can be made less wordy if you use one.
+        
+        
+    
+    
+
+
+        
+
+        
+    
+        var form = document.createElement("form");
+        form.setAttribute("method", method);
+        form.setAttribute("action", path);
+        form.setAttribute("enctype", "multipart/form-data");
+        
+        
+ 
+    
+        
+        form.setAttribute("target", "formDestination");
+        
+        
+     
+
+        for(var key in params) {
+            if(params.hasOwnProperty(key)) {
+                var hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "hidden");
+                hiddenField.setAttribute("name", key);
+                hiddenField.setAttribute("value", params[key]);
+
+                form.appendChild(hiddenField);
+             }
+        }
+
+
+
+        document.body.appendChild(form);
+         
+      var errors = editor.validate();
+
+if(errors.length) {
+  
+  
+  
+  alert("Errors");
+  console.log(errors);
+}
+else {
+
+
+ 
+    form.submit();
+    
+  
+    
+
+
+      alert("Saved");
+}
+
+
+
+    }  
+    
+    
+  
+  
+
+ 
+  
+    
+    
+      
+      // Hook up the submit button to log to the console
+      document.getElementById('submit').addEventListener('click',function() {
+
+
+
+
+
+var data = JSON.stringify(editor.getValue());
+
+
+
+   post('http://www.ctv15.org/mobile_app/textForm/submit.php', editor.upload);
+
+
+        
+        
+        
+      console.log(editor.getValue());
+    
+    
+   
+
+
+
+
+
+
+
+
+      });
+      
+      
+      
+      
+      // Hook up the Restore to Default button
+      document.getElementById('restore').addEventListener('click',function() {
+        editor.setValue(starting_value);
+      });
+      
+      
+      
+      
+
+      
+      
+      
+         // Hook up the validation indicator to update its 
+      // status whenever the editor changes
+      editor.on('change',function() {
+        // Get an array of errors from the validator
+        var errors = editor.validate();
+        
+        var indicator = document.getElementById('valid_indicator');
+        
+        // Not valid
+        if(errors.length) {
+          indicator.className = 'label alert';
+          indicator.textContent = 'not valid';
+        }
+        // Valid
+        else {
+          indicator.className = 'label success';
+          indicator.textContent = 'valid';
+        }
+      });
+    </script>
+    
+    
+  </body>
+</html>

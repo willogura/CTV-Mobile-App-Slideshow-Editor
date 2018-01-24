@@ -1,0 +1,1 @@
+[{"slideType":"page","title":"About CTV","image":"app-ctv2.png","page":"About"},{"slideType":"category","title":"graduations","image":"app-grad.png","category":"graduations"},{"slideType":"category","title":"sports","image":"app-sport2.png","category":"sports"},{"slideType":"category","title":"news","image":"app-nsb.png","category":"news"}]

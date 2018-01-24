@@ -1,0 +1,176 @@
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+
+
+
+
+<style>
+
+.my-repeated-section{
+    display: block;
+    min-height: 2em;
+    border-bottom: 1px dashed #ccc;
+}
+
+
+   
+   a{
+    text-decoration: none;
+    border: 1px solid #ccc;
+    background-color: #369;
+    color: #fff;
+    display: block;
+    float: left;
+    width: 20px;
+    text-align: center;
+}
+
+
+
+   
+   
+   
+</style>
+
+
+
+<form action="http://www.ctv15.org/mobile_app/textForm/submit.php"  id="form" method="post">
+
+<div class="group-of-repeated-sections" id="box">
+    <div class="my-repeated-section" name="section" id="box"   >
+    <br />
+    <br />
+    
+ Title: <input type="text" name="title" id="title"  /><br />
+ Image Title: <input type="text" name="imageTitle" id="imageTitle" /><br />
+ Category: <input type="text" name="category" id="category" /><br />
+ Type: <select name="type" id="type">
+  <option value="">---</option>
+  <option value="category">Category</option>
+  <option value="video">Video</option>
+  <option value="web">Web Page</option>
+  <option value="page">App Page</option>
+ </select><br />
+ Publish: <input type="radio" name="publish" id="publish" value="false" />No
+   <input type="radio" name="publish" id="publish" value="true" />Yes<br />
+ 
+
+       
+            <a href="#" class="add"  > + </a>
+            <a href="#" class="remove"> - </a> 
+       <br />
+       
+       <br />
+    </div>
+</div>
+
+
+
+<br />
+
+   <input type="submit" id="submit" value="Send" />
+
+  <script>
+function makeRepeater(sectionsSelector, addClass, removeClass, AYSMsg){  
+   (function($){  
+      $(  
+         sectionsSelector + " " + addClass +","+  
+         sectionsSelector + " " + removeClass  
+      ).on("click", function(event){  
+         // Avoiding the link to do the default behavior.  
+         event.preventDefault();  
+  
+         // Get the container to be removed/cloned  
+         var theContainer = $(this).parents(sectionsSelector);  
+         if($(this).is(addClass)){  
+  
+            // Cloning the container with events  
+            var clonedSection = $(theContainer).clone(true);  
+  
+            // And appending it just after the current container  
+            $(clonedSection).insertAfter(theContainer);  
+            
+              var newdiv = document.createElement('div');
+          theContainer.innerHTML = clonedSection;
+          
+            
+            
+var list = document.getElementsByName("title");
+for (var i = 0; i < list.length; i++) {
+    list[i].id = "title" + (i + 1);
+}
+
+var list = document.getElementsByName("section");
+for (var i = 0; i < list.length; i++) {
+    list[i].id = "section" + (i + 1);
+}
+
+
+
+
+
+         }else{  
+            // If the user confirm the "Are You Sure" message   
+            // we can remove the current container  
+            if(confirm(AYSMsg)){  
+  
+               // Making fade out, hide and remove element a sequence  
+               // to provide a nice UX when removing element.   
+               $(theContainer).fadeOut('normal',   
+                  function( ){  
+                     $(this).hide('fast',   
+                        function(){ $(this).remove();  }   
+                     );  
+                  }   
+               );  
+            }  
+         }  
+      });  
+   })(jQuery);  
+}
+
+
+
+    
+    
+   
+
+
+
+  
+
+
+
+
+       
+
+    
+
+
+
+</script>
+
+
+
+  
+
+
+
+  
+  </form>
+  
+
+  
+<script>
+
+  makeRepeater(  
+  
+
+
+        '.my-repeated-section',   /* The container selector */  
+        '.add',                   /* The add action selector */  
+        '.remove',                /* The remove action selector */  
+        'Are you sure you want to remove this section?' /* The AYS message. */  
+    );  
+    
+    </script>
